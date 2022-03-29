@@ -32,8 +32,8 @@ namespace BiblioGestSbyS.Models
         }
 
         [JsonProperty(PropertyName = "id_livre")]
-        private int idLivre;
-        public int IdLivre
+        private int? idLivre;
+        public int? IdLivre
         {
             get { return idLivre; }
             set
@@ -41,10 +41,34 @@ namespace BiblioGestSbyS.Models
                 if (this.idLivre != value)
                 {
                     this.idLivre = value;
+                    //TODO persist ?
                 }
             }
         }
-        Livre Livre { get; set; }
+
+        [JsonIgnore]
+        private Livre livre;
+        public Livre Livre
+        {
+            get
+            {
+                if (this.livre == null)
+                {
+                    livre = Livre.jDA.GetById(this.idLivre);
+                }
+                return livre;
+            }
+            set
+            {
+                if (this.idLivre != value?.Id)
+                {
+                    Livre?.RemoveExemplaire(this);
+                    this.idLivre = value?.Id;
+                    this.livre = null; //need to reset Livre get
+                    Livre?.AddExemplaire(this);
+                }
+            }
+        }
 
         [JsonProperty(PropertyName = "id_usure")]
         private int idUsure;

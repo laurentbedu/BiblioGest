@@ -25,6 +25,14 @@ namespace BiblioGestSbyS.DAL
                 return JsonConvert.DeserializeObject<List<T>>(jsonString);
             }
         }
+        public List<dynamic> LoadJsonData(string fileName)
+        {
+            using (StreamReader reader = new StreamReader($"JsonData/{fileName}.json"))
+            {
+                string jsonString = reader.ReadToEnd();
+                return JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
+            }
+        }
         private void SaveJsonData()
         {
             string className = typeof(T).Name.ToLower();
@@ -41,9 +49,9 @@ namespace BiblioGestSbyS.DAL
             return filter != null ? list.FindAll(filter) : list;
         }
 
-        public T? GetById(int id)
+        public T? GetById(int? id)
         {
-            return id > 0 ? GetAll(item => item.Id == id).First() : null;
+            return id != null && id > 0 ? GetAll(item => item.Id == id).First() : null;
         }
 
         public List<T> GetDeleted(Predicate<T> filter = null)
