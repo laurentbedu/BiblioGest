@@ -4,7 +4,9 @@ namespace BiblioGestSbyS.Models
 {
     internal class Auteur : ModelBase<Auteur>
     {
+        [JsonProperty(PropertyName = "nom")]
         private string nom;
+        [JsonIgnore]
         public string Nom
         {
             get { return nom; }
@@ -13,11 +15,14 @@ namespace BiblioGestSbyS.Models
                 if (this.nom != value)
                 {
                     this.nom = value;
+                    RaisePropertyChanged(() => Nom);
                 }
             }
         }
 
+        [JsonProperty(PropertyName = "prenom")]
         private string prenom;
+        [JsonIgnore]
         public string Prenom
         {
             get { return prenom; }
@@ -26,12 +31,14 @@ namespace BiblioGestSbyS.Models
                 if (this.prenom != value)
                 {
                     this.prenom = value;
+                    RaisePropertyChanged(() => Prenom);
                 }
             }
         }
 
         [JsonIgnore]
         private List<int> idLivreList;
+        [JsonIgnore]
         public List<int> IdLivreList
         {
             get
@@ -52,6 +59,7 @@ namespace BiblioGestSbyS.Models
 
         [JsonIgnore]
         private List<Livre> livreList;
+        [JsonIgnore]
         public List<Livre> LivreList
         {
             get

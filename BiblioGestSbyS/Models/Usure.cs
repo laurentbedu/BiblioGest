@@ -1,8 +1,12 @@
-﻿namespace BiblioGestSbyS.Models
+﻿using Newtonsoft.Json;
+
+namespace BiblioGestSbyS.Models
 {
     internal class Usure : ModelBase<Usure>
     {
+        [JsonProperty(PropertyName = "etat")]
         private string etat;
+        [JsonIgnore]
         public string Etat
         {
             get { return etat; }
@@ -11,6 +15,7 @@
                 if (this.etat != value)
                 {
                     this.etat = value;
+                    RaisePropertyChanged(() => Etat);
                 }
             }
         }

@@ -1,11 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace BiblioGestSbyS.Models
 {
     internal class Livre : ModelBase<Livre>
     {
-
+        [JsonProperty(PropertyName = "titre")]
         private string titre;
+        [JsonIgnore]
         public string Titre
         {
             get { return titre; }
@@ -14,11 +15,14 @@ namespace BiblioGestSbyS.Models
                 if (this.titre != value)
                 {
                     this.titre = value;
+                    RaisePropertyChanged(() => Titre);
                 }
             }
         }
 
+        [JsonProperty(PropertyName = "isbn")]
         private string isbn;
+        [JsonIgnore]
         public string Isbn
         {
             get { return isbn; }
@@ -27,12 +31,15 @@ namespace BiblioGestSbyS.Models
                 if (this.isbn != value)
                 {
                     this.isbn = value;
+                    RaisePropertyChanged(() => Isbn);
                 }
             }
         }
 
         [JsonIgnore]
         private List<Exemplaire> exemplairesList;
+
+        [JsonIgnore]
         public List<Exemplaire> ExemplairesList
         {
             get
@@ -74,6 +81,8 @@ namespace BiblioGestSbyS.Models
 
         [JsonIgnore]
         private List<int> idAuteurList;
+
+        [JsonIgnore]
         public List<int> IdAuteurList
         {
             get
@@ -94,6 +103,8 @@ namespace BiblioGestSbyS.Models
 
         [JsonIgnore]
         private List<Auteur> auteurList;
+
+        [JsonIgnore]
         public List<Auteur> AuteurList
         {
             get

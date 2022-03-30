@@ -1,9 +1,15 @@
-﻿namespace BiblioGestSbyS.Models
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Linq.Expressions;
+
+namespace BiblioGestSbyS.Models
 {
-    internal class ModelBase<T> where T : ModelBase<T>
+    internal class ModelBase<T> : INotifyPropertyChanged where T : ModelBase<T>
     {
 
-        private int id;
+        [JsonProperty(PropertyName = "id")]
+        protected int id;
+        [JsonIgnore]
         public int Id
         {
             get => id;
@@ -15,7 +21,9 @@
                 }
             }
         }
-        private bool deleted = false;
+        [JsonProperty(PropertyName = "deleted")]
+        protected bool deleted = false;
+        [JsonIgnore]
         public bool Deleted
         {
             get => deleted;
@@ -24,14 +32,29 @@
                 if (this.deleted != value)
                 {
                     this.deleted = value;
+                    RaisePropertyChanged(() => Deleted);
                 }
             }
         }
 
         //DAL
-        public static DAL.JsonDataAcces<T> jDA = new DAL.JsonDataAcces<T>();
+        public static readonly DAL.JsonDataAcces<T> jDA = new DAL.JsonDataAcces<T>();
 
+        #region INotifyPropertyChanged Implementation
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void RaisePropertyChanged<M>(Expression<Func<M>> action) //where M : ModelBase<M>
+        {
+            MemberExpression expression = (MemberExpression)action.Body;
+            string propertyName = expression.Member.Name;
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+            jDA.Persist((T)this);
+        }
+
+        #endregion
     }
 
 }

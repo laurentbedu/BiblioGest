@@ -36,9 +36,11 @@ namespace BiblioGestSbyS.DAL
         private void SaveJsonData()
         {
             string className = typeof(T).Name.ToLower();
+
             using (StreamWriter writer = new StreamWriter($"JsonData/{className}.json"))
             {
-                string jsonString = JsonConvert.SerializeObject(DataList);
+
+                string jsonString = JsonConvert.SerializeObject(dataList);
                 writer.Write(jsonString);
             }
         }
@@ -51,7 +53,8 @@ namespace BiblioGestSbyS.DAL
 
         public T? GetById(int? id)
         {
-            return id != null && id > 0 ? GetAll(item => item.Id == id).First() : null;
+            List<T> list = GetAll(item => item.Id == id);
+            return id != null && id > 0 && list.Count > 0 ? GetAll(item => item.Id == id).First() : null;
         }
 
         public List<T> GetDeleted(Predicate<T> filter = null)
@@ -71,7 +74,7 @@ namespace BiblioGestSbyS.DAL
                 }
                 DataList.Add((T)instance);
             }
-            SaveJsonData();
+            Task.Run(() => SaveJsonData());
         }
 
         public void Delete(T instance)
@@ -80,7 +83,7 @@ namespace BiblioGestSbyS.DAL
             {
                 DataList.Remove((T)instance);
             }
-            SaveJsonData();
+            Task.Run(() => SaveJsonData());
         }
 
 

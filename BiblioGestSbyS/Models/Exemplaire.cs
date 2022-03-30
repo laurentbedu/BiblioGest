@@ -6,6 +6,7 @@ namespace BiblioGestSbyS.Models
     {
         [JsonProperty(PropertyName = "date_achat")]
         private string dateAchat;
+        [JsonIgnore]
         public DateTime DateAchat
         {
             get => DateTime.Parse(dateAchat);
@@ -14,11 +15,14 @@ namespace BiblioGestSbyS.Models
                 if (this.dateAchat != value.ToString("yyyy-MM-dd"))
                 {
                     this.dateAchat = value.ToString("yyyy-MM-dd");
+                    RaisePropertyChanged(() => DateAchat);
                 }
             }
         }
 
+        [JsonProperty(PropertyName = "emplacement")]
         private string emplacement;
+        [JsonIgnore]
         public string Emplacement
         {
             get { return emplacement; }
@@ -27,12 +31,14 @@ namespace BiblioGestSbyS.Models
                 if (this.emplacement != value)
                 {
                     this.emplacement = value;
+                    RaisePropertyChanged(() => Emplacement);
                 }
             }
         }
 
         [JsonProperty(PropertyName = "id_livre")]
         private int? idLivre;
+        [JsonIgnore]
         public int? IdLivre
         {
             get { return idLivre; }
@@ -48,6 +54,7 @@ namespace BiblioGestSbyS.Models
 
         [JsonIgnore]
         private Livre livre;
+        [JsonIgnore]
         public Livre Livre
         {
             get
@@ -64,7 +71,7 @@ namespace BiblioGestSbyS.Models
                 {
                     Livre?.RemoveExemplaire(this);
                     this.idLivre = value?.Id;
-                    this.livre = null; //need to reset Livre get
+                    this.livre = null; //needed to reset Livre get
                     Livre?.AddExemplaire(this);
                 }
             }
@@ -72,6 +79,7 @@ namespace BiblioGestSbyS.Models
 
         [JsonProperty(PropertyName = "id_usure")]
         private int idUsure;
+        [JsonIgnore]
         public int IdUsure
         {
             get { return idUsure; }
@@ -86,6 +94,7 @@ namespace BiblioGestSbyS.Models
 
         [JsonProperty(PropertyName = "id_editeur")]
         private int idEditeur;
+        [JsonIgnore]
         public int IdEditeur
         {
             get { return idEditeur; }
