@@ -15,7 +15,7 @@ namespace BiblioGestSbyS.Models
                 if (this.nom != value)
                 {
                     this.nom = value;
-                    RaisePropertyChanged(() => Nom);
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -31,7 +31,7 @@ namespace BiblioGestSbyS.Models
                 if (this.prenom != value)
                 {
                     this.prenom = value;
-                    RaisePropertyChanged(() => Prenom);
+                    RaisePropertyChanged();
                 }
             }
         }

@@ -15,7 +15,7 @@ namespace BiblioGestSbyS.Models
                 if (this.dateAchat != value.ToString("yyyy-MM-dd"))
                 {
                     this.dateAchat = value.ToString("yyyy-MM-dd");
-                    RaisePropertyChanged(() => DateAchat);
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -31,7 +31,7 @@ namespace BiblioGestSbyS.Models
                 if (this.emplacement != value)
                 {
                     this.emplacement = value;
-                    RaisePropertyChanged(() => Emplacement);
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -93,9 +93,9 @@ namespace BiblioGestSbyS.Models
         }
 
         [JsonProperty(PropertyName = "id_editeur")]
-        private int idEditeur;
+        private int? idEditeur;
         [JsonIgnore]
-        public int IdEditeur
+        public int? IdEditeur
         {
             get { return idEditeur; }
             set
@@ -103,6 +103,31 @@ namespace BiblioGestSbyS.Models
                 if (this.idEditeur != value)
                 {
                     this.idEditeur = value;
+                }
+            }
+        }
+
+        [JsonIgnore]
+        private Editeur editeur;
+        [JsonIgnore]
+        public Editeur Editeur
+        {
+            get
+            {
+                if (this.editeur == null)
+                {
+                    editeur = Editeur.jDA.GetById(this.idEditeur);
+                }
+                return editeur;
+            }
+            set
+            {
+                if (this.idEditeur != value?.Id)
+                {
+                    Editeur?.RemoveExemplaire(this);
+                    this.idEditeur = value?.Id;
+                    this.editeur = null; //needed to reset Editeur get
+                    Editeur?.AddExemplaire(this);
                 }
             }
         }

@@ -15,7 +15,7 @@ namespace BiblioGestSbyS.Models
                 if (this.titre != value)
                 {
                     this.titre = value;
-                    RaisePropertyChanged(() => Titre);
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -31,7 +31,7 @@ namespace BiblioGestSbyS.Models
                 if (this.isbn != value)
                 {
                     this.isbn = value;
-                    RaisePropertyChanged(() => Isbn);
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -116,6 +116,19 @@ namespace BiblioGestSbyS.Models
                 return this.auteurList;
             }
         }
+        //[JsonIgnore]
+        //public string AuteursNames
+        //{
+        //    get
+        //    {
+        //        string names = "";
+        //        foreach (var item in this.AuteurList)
+        //        {
+        //            names += item.Nom + "" + " - ";
+        //        }
+        //        return names.TrimEnd(new char[] { ' ', '-' });
+        //    }
+        //}
 
         public List<Auteur> AddAuteur(Auteur auteur)
         {

@@ -1,4 +1,4 @@
-using BiblioGestSbyS.Models;
+using BiblioGestSbyS.Views;
 
 namespace BiblioGestSbyS
 {
@@ -9,21 +9,14 @@ namespace BiblioGestSbyS
             InitializeComponent();
         }
 
-        Livre? livre;
-
         private void FormMain_Load(object sender, EventArgs e)
         {
-
-            livre = Livre.jDA.GetById(1);
-            label1.DataBindings.Add("Text", livre, "Titre");
-            textBox1.DataBindings.Add("Text", livre, "Titre");
-
+            this.Controls.Add(new LivreControl(this));
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            livre.Titre = textBox1.Text;
-        }
+
+
+
 
 
     }

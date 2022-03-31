@@ -15,7 +15,7 @@ namespace BiblioGestSbyS.Models
                 if (this.etat != value)
                 {
                     this.etat = value;
-                    RaisePropertyChanged(() => Etat);
+                    RaisePropertyChanged();
                 }
             }
         }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 namespace BiblioGestSbyS.Models
 {
@@ -43,7 +44,7 @@ namespace BiblioGestSbyS.Models
         #region INotifyPropertyChanged Implementation
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public void RaisePropertyChanged<M>(Expression<Func<M>> action) //where M : ModelBase<M>
+        protected void RaisePropertyChanged<M>(Expression<Func<M>> action) //where M : ModelBase<M>
         {
             MemberExpression expression = (MemberExpression)action.Body;
             string propertyName = expression.Member.Name;
@@ -54,7 +55,16 @@ namespace BiblioGestSbyS.Models
             jDA.Persist((T)this);
         }
 
+        protected void RaisePropertyChanged([CallerMemberName] string name = null)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
         #endregion
+
     }
 
 }
