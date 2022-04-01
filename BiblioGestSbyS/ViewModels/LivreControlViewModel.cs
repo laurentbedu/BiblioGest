@@ -5,7 +5,20 @@ namespace BiblioGestSbyS.ViewModels
 {
     internal class LivreControlViewModel : ViewModelBase
     {
-        public BindingList<dynamic> LivreList { get; set; }
+        private BindingList<dynamic> livreList;
+        public BindingList<dynamic> LivreList
+        {
+            get
+            {
+                return livreList;
+
+            }
+            set
+            {
+                livreList = value;
+                RaisePropertyChanged();
+            }
+        }
 
         private Livre selectedLivre;
         public Livre SelectedLivre
@@ -46,7 +59,7 @@ namespace BiblioGestSbyS.ViewModels
 
         public LivreControlViewModel()
         {
-            LivreList = new BindingList<dynamic>();
+            List<dynamic> list = new List<dynamic>();
             foreach (Livre livre in Livre.jDA.GetAll())
             {
                 string auteurs = string.Join(" / ", livre.AuteurList.Select(l => l.Nom + " " + l.Prenom[0] + "."));
@@ -57,8 +70,10 @@ namespace BiblioGestSbyS.ViewModels
                     livre.Isbn,
                     Auteurs = auteurs,
                 };
-                LivreList.Add(item);
+                list.Add(item);
             }
+            list = list.OrderBy(it => it.Titre).ToList();
+            LivreList = new BindingList<dynamic>(list);
             SelectedLivre = Livre.jDA.GetById(LivreList.First().Id);
         }
 

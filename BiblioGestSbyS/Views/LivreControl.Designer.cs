@@ -28,32 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.dataGridViewLivres = new System.Windows.Forms.DataGridView();
             this.dataGridViewExemplaires = new System.Windows.Forms.DataGridView();
             this.labelTitre = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.buttonSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLivres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExemplaires)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::BiblioGestSbyS.Properties.Resources.loupe;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(28, 28);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            // 
             // textBoxSearch
             // 
-            this.textBoxSearch.Location = new System.Drawing.Point(37, 4);
+            this.textBoxSearch.Location = new System.Drawing.Point(3, 4);
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(264, 27);
             this.textBoxSearch.TabIndex = 4;
+            this.textBoxSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSearch_KeyPress);
             // 
             // dataGridViewLivres
             // 
@@ -105,20 +95,35 @@
             this.labelTitre.TabIndex = 9;
             this.labelTitre.Text = "label1";
             // 
+            // buttonSearch
+            // 
+            this.buttonSearch.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonSearch.BackgroundImage = global::BiblioGestSbyS.Properties.Resources.loupe;
+            this.buttonSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonSearch.FlatAppearance.BorderSize = 0;
+            this.buttonSearch.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonSearch.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSearch.Location = new System.Drawing.Point(273, 3);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(28, 28);
+            this.buttonSearch.TabIndex = 10;
+            this.buttonSearch.UseVisualStyleBackColor = false;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
             // LivreControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.labelTitre);
             this.Controls.Add(this.dataGridViewExemplaires);
             this.Controls.Add(this.dataGridViewLivres);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.textBoxSearch);
             this.Name = "LivreControl";
             this.Size = new System.Drawing.Size(761, 546);
             this.Load += new System.EventHandler(this.LivreControl_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLivres)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExemplaires)).EndInit();
             this.ResumeLayout(false);
@@ -127,11 +132,10 @@
         }
 
         #endregion
-
-        private PictureBox pictureBox1;
         private TextBox textBoxSearch;
         private DataGridView dataGridViewLivres;
         private DataGridView dataGridViewExemplaires;
         private Label labelTitre;
+        private Button buttonSearch;
     }
 }
